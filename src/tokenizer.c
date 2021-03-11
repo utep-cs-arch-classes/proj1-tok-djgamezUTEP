@@ -4,27 +4,75 @@
 /* Return true (non-zero) if c is a whitespace characer
    (' ', '\t', or '\n').
    Zero terminators are not printable (therefore false) */
-int space_char(char c);
+int space_char(char c){
+  int res;
+  if( c==' '||c== '\t'||c=='\n'||c=='\0'){
+    res= 1;
+  }else{
+   res=0;
+  }
+  return res;
+ 
+  
+}
+
+
 
 /* Return true (non-zero) if c is a non-whitespace
    character (not space, tab, or newline).
    Zero terminators are not printable (therefore false) */
-int non_space_char(char c);
-
+int non_space_char(char c){
+  int res;
+  if( c==' '||c== '\t'||c=='\n'||c=='\0'){
+    res= 0;
+  }
+  else{
+    res=1;
+  }
+  return res;
+}
 /* Returns a pointer to the first character of the next
    space-separated word in zero-terminated str.  Return a zero pointer if
    str does not contain any words.
    str is assumed to be pointing to a space character */
-char *word_start(char *str);
-
+char *word_start(char *str){
+int i;
+for (i=0; *(str+i) != '\0'; i++){
+  if(non_space_char(*(str+i))==1 ){
+    return  str+i;
+  }
+  // printf("%c \n", *(str+i));
+ }
+return '\0';
+}
 /* Returns a pointer terminator to the first space character or string-terminator
    following str in a zero terminated string.
    str is assumed to be pointing to a non-space character*/
-char *word_end(char *str);
+char *word_end(char *str){
+int i;
+for (i=0; *(str+i) != '\0'; i++){
+  if(space_char(*(str+i))==1 ){
+    return  str+i;
+  }
+  // printf("%c \n", *(str+i));
+ }
+return '\0';
+}
 
 /* Counts the number of space seperated words in the string argument. */
-int count_words(char *str);
-
+int count_words(char *str){
+int i;
+int ct=0;
+for (i=0; *(str+i)!='\0'; i++){
+  if(non_space_char(*(str+i))==1 && space_char(*(str+i+1))==1){
+     
+    ct+=1;
+    }
+  printf("%c\n", *(str+i));
+   
+ }
+ return ct;
+}
 /* Returns a freshly allocated new zero-terminated string
    containing <len> chars from <inStr> */
 char *copy_str(char *inStr, short len);
